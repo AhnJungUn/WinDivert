@@ -22,7 +22,7 @@ void callback(u_char *useless, const struct pcap_pkthdr *pkthdr, const u_char *p
     ethhdr = (struct libnet_ethernet_hdr *)packet;
     packet += sizeof(struct libnet_ethernet_hdr);
     
-    printf("ethernet Src Mac  : %s\n",(char*)ether_ntoa(ethhdr->ether_shost));//ethernet addr array????
+    printf("ethernet Src Mac  : %s\n",(char*)ether_ntoa(ethhdr->ether_shost));
     printf("ethernet Dst Mac  : %s\n\n",(char*)ether_ntoa(ethhdr->ether_dhost));	
     
     ether_type = ntohs(ethhdr->ether_type); 
@@ -45,13 +45,13 @@ void callback(u_char *useless, const struct pcap_pkthdr *pkthdr, const u_char *p
     if(ip_type == 0x06)
     {
 	packet += iphdr->ip_hl * 4; 
-	tcphdr = (struct libnet_tcp_hdr *)(packet); //ip_hl=ip_header length
+	tcphdr = (struct libnet_tcp_hdr *)(packet); 
 	printf("TCP Packet\n");
         printf("Src Port : %d\n" , ntohs(tcphdr->th_sport));
         printf("Dst Port : %d\n\n" , ntohs(tcphdr->th_dport));
 	    
 	packet += tcphdr->th_off * 4;
-	length = length - sizeof(struct libnet_ethernet_hdr) - iphdr->ip_hl - tcphdr->th_off; // right?  
+	length = length - sizeof(struct libnet_ethernet_hdr) - iphdr->ip_hl - tcphdr->th_off;   
 	
 	printf("DATA \n");    
 	while(length--)
