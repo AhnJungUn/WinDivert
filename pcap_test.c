@@ -82,8 +82,7 @@ int main(int argc, char **argv)
         printf("%s\n", errbuf);
         exit(1);
     }
-
-    // 디바이스 dev 에 대한 packet capture descriptor 를얻어온다.   
+  
     pcd = pcap_open_live(dev, BUFSIZ, 1/*PROMISCUOUS*/, -1, errbuf);
     
     if (pcd == NULL)
