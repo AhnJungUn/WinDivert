@@ -253,7 +253,7 @@ void Relay(pcap_t *pcd, const struct in_addr *gateway_IP, const struct ether_add
 	if(!memcmp(&etherhdr->ether_shost, victim_MAC, 6) && (ntohs(etherhdr->ether_type) == ETHERTYPE_IP)) // relay
 	{
 		iphdr = (struct libnet_ipv4_hdr *)packet;
-		if(!memcmp(&iphdr->ip_src, victim_IP, 4))
+		if(!memcmp(&iphdr->ip_src, victim_IP, 4) && (memcmp(&iphdr->ip_dst, my_IP, 4) != 0))
 		{
 			printf("Catch Sender's IP_Packet to %s \n",inet_ntoa(iphdr->ip_dst)); 
 			
